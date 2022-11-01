@@ -26,12 +26,10 @@ public class SDES {
 		// first 4 values are from provided examples, second 4 are for unknown values
 		// given the cipherText
 		// control the plain text here (must be 8 bits)
-		String[] plainText = { "10101010", "10101010", "01010101", "10101010", "00000000", "11111111", "00000000",
-				"11111111" };
+		String[] plainText = { "00000000", "11111111", "00000000","11111111" };
 
 		// control the key below (must be 10 bits)
-		String[] rawKey = { "0000000000", "1110001110", "1110001110", "1111111111", "0000000000", "1111111111",
-				"0000011111", "0000011111" };
+		String[] rawKey = { "0000000000", "1111111111","0000011111", "0000011111" };
 
 		System.out.println(
 				"          Raw Key           |          Plain Text           |           Cipher Text         ");

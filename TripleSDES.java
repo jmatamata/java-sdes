@@ -119,6 +119,7 @@ public class TripleSDES {
 
 		// Runs for all possible keys
 		for (int i = 0; i < 1024; i++) {
+            System.out.println("current value for i: "+i);
 			for(int j = i; j < 1024; j++) {
 				
 				// ArrayList containing all decrypted bits
