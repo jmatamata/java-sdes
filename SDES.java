@@ -18,8 +18,8 @@ public class SDES {
 	static int[] indicesFor8BitPerm = { 5, 2, 6, 3, 7, 4, 9, 8 }; // 6,3,7,4,8,5,x,9
 
 	// instantiate 2 keys to be created from given key
-	static int[] key1 = new int[8];
-	static int[] key2 = new int[8];
+	static Byte[] key1 = new Byte[8];
+	static Byte[] key2 = new Byte[8];
 
 	// main function to execute our program
 	public static void main(String[] args) {
@@ -75,8 +75,8 @@ public class SDES {
 	 * Reverse of initial permutation
 	 */
 	// helper method to run all commands needed for sdes
-	public static int[] runSDESEncrypt(String plainText, String rawKey) {
-		int[] solution = new int[8];
+	public static Byte[] runSDESEncrypt(String plainText, String rawKey) {
+		Byte[] solution = new Byte[8];
 
 		// generate the 2 keys to use in the program
 		generateKeys(rawKey);
@@ -87,8 +87,8 @@ public class SDES {
 	}
 
 	// method to run sdes decrypt given ciphertext and key
-	public static int[] runSDESDecrypt(String cipherText, String rawKey) {
-		int[] solution = new int[8];
+	public static Byte[] runSDESDecrypt(String cipherText, String rawKey) {
+		Byte[] solution = new Byte[8];
 
 		// generate the 2 keys to use in the program
 		generateKeys(rawKey);
@@ -101,11 +101,11 @@ public class SDES {
 	/*
 	 * The below functions are used to encrypt a plain text to cipher text
 	 */
-	public static int[] encryptText(String plainText) {
-		int[] solution = new int[8];
+	public static Byte[] encryptText(String plainText) {
+		Byte[] solution = new Byte[8];
 
 		// convert the raw key from string to an array
-		List<Integer> textArr = new ArrayList<>();
+		List<Byte> textArr = new ArrayList<>();
 
 		// convert string value to int and add to the array
 		for (int i = 0; i < plainText.length(); i++) {
@@ -113,7 +113,7 @@ public class SDES {
 		}
 
 		// array that holds 8 bit values to work with
-		int[] currentText = new int[8];
+		Byte[] currentText = new Byte[8];
 
 		// perform the initial permutation on plainText
 		for (int i = 0; i < currentText.length; i++) {
@@ -121,13 +121,13 @@ public class SDES {
 		}
 
 		// split into left and right arrays (4 bits each)
-		int[] leftAfterPermutation = new int[4];
+		Byte[] leftAfterPermutation = new Byte[4];
 		System.arraycopy(currentText, 0, leftAfterPermutation, 0, 4);
-		int[] rightAfterPermutation = new int[4];
+		Byte[] rightAfterPermutation = new Byte[4];
 		System.arraycopy(currentText, 4, rightAfterPermutation, 0, 4);
 
 		// run steps in between and return array with 2 arrays
-		int[][] returnedValues = intermidiateSteps(leftAfterPermutation, rightAfterPermutation, key1);
+		Byte[][] returnedValues = intermidiateSteps(leftAfterPermutation, rightAfterPermutation, key1);
 
 		// make leftAfterPermutation equal rightAfterPermutation and make
 		// rightAfterPermutation equal to second xor output
@@ -138,11 +138,11 @@ public class SDES {
 		returnedValues = intermidiateSteps(leftAfterPermutation, rightAfterPermutation, key2);
 
 		// assign values to use below
-		int[] secondXorOutput = returnedValues[0];
+		Byte[] secondXorOutput = returnedValues[0];
 		rightAfterPermutation = returnedValues[1];
 
 		// merge the current rightAfterPermutation with the secondXorOutput
-		int[] preliminarySolution = new int[8];
+		Byte[] preliminarySolution = new Byte[8];
 
 		int innerIndex = 0;
 		for (int i = 0; i < 4; i++) {
@@ -164,11 +164,11 @@ public class SDES {
 	 * the exact same but we use key2 first followed by key1 and we take in a
 	 * ciphertext instead
 	 */
-	public static int[] decryptText(String cipherText) {
-		int[] solution = new int[8];
+	public static Byte[] decryptText(String cipherText) {
+		Byte[] solution = new Byte[8];
 
 		// convert the raw key from string to an array
-		List<Integer> textArr = new ArrayList<>();
+		List<Byte> textArr = new ArrayList<>();
 
 		// convert string value to int and add to the array
 		for (int i = 0; i < cipherText.length(); i++) {
@@ -176,7 +176,7 @@ public class SDES {
 		}
 
 		// array that holds 8 bit values to work with
-		int[] currentText = new int[8];
+		Byte[] currentText = new Byte[8];
 
 		// perform the initial permutation on cipherText
 		for (int i = 0; i < currentText.length; i++) {
@@ -184,13 +184,13 @@ public class SDES {
 		}
 
 		// split into left and right arrays (4 bits each)
-		int[] leftAfterPermutation = new int[4];
+		Byte[] leftAfterPermutation = new Byte[4];
 		System.arraycopy(currentText, 0, leftAfterPermutation, 0, 4);
-		int[] rightAfterPermutation = new int[4];
+		Byte[] rightAfterPermutation = new Byte[4];
 		System.arraycopy(currentText, 4, rightAfterPermutation, 0, 4);
 
 		// run steps in between and return array with 2 arrays
-		int[][] returnedValues = intermidiateSteps(leftAfterPermutation, rightAfterPermutation, key2);
+		Byte[][] returnedValues = intermidiateSteps(leftAfterPermutation, rightAfterPermutation, key2);
 
 		// make leftAfterPermutation equal rightAfterPermutation and make
 		// rightAfterPermutation equal to second xor output
@@ -201,11 +201,11 @@ public class SDES {
 		returnedValues = intermidiateSteps(leftAfterPermutation, rightAfterPermutation, key1);
 
 		// assign values to use below
-		int[] secondXorOutput = returnedValues[0];
+		Byte[] secondXorOutput = returnedValues[0];
 		rightAfterPermutation = returnedValues[1];
 
 		// merge the current rightAfterPermutation with the secondXorOutput
-		int[] preliminarySolution = new int[8];
+		Byte[] preliminarySolution = new Byte[8];
 
 		int innerIndex = 0;
 		for (int i = 0; i < 4; i++) {
@@ -223,9 +223,9 @@ public class SDES {
 	}
 
 	// intermediateSteps eliminates repetitive code
-	public static int[][] intermidiateSteps(int[] leftSide, int[] rightSide, int[] keyToUse) {
+	public static Byte[][] intermidiateSteps(Byte[] leftSide, Byte[] rightSide, Byte[] keyToUse) {
 		// array that will hold right side expansion and permutation
-		int[] rightExpansion = new int[8];
+		Byte[] rightExpansion = new Byte[8];
 
 		// expand and permutate the right side
 		for (int i = 0; i < rightExpansion.length; i++) {
@@ -233,7 +233,7 @@ public class SDES {
 		}
 
 		// array to store the value of the xor operation
-		int[] xorOutput = new int[8];
+		Byte[] xorOutput = new Byte[8];
 
 		// perform xor operation with expanded permutation of right side and keyToUse
 		for (int i = 0; i < xorOutput.length; i++) {
@@ -241,9 +241,9 @@ public class SDES {
 		}
 
 		// split the xor output into 2 4-bit arrays
-		int[] left = new int[4];
+		Byte[] left = new Byte[4];
 		System.arraycopy(xorOutput, 0, left, 0, 4);
-		int[] right = new int[4];
+		Byte[] right = new Byte[4];
 		System.arraycopy(xorOutput, 4, right, 0, 4);
 
 		// take 1st and 4th bits for row, 2nd and 3rd for col
@@ -271,7 +271,7 @@ public class SDES {
 																						// 2 bit number
 
 		// array to combine the binary values above
-		int[] combinationOfBits = new int[4];
+		Byte[] combinationOfBits = new int[4];
 
 		// merge bits above to combinationOfBits
 		int firstHalf = 0;
@@ -284,14 +284,14 @@ public class SDES {
 		}
 
 		// permutate combinationOfBits (P4)
-		int[] abovePermutation = new int[4];
+		Byte[] abovePermutation = new Byte[4];
 		// perform the initial permutation on plainText
 		for (int i = 0; i < abovePermutation.length; i++) {
 			abovePermutation[i] = combinationOfBits[indicesFor4BitPerm[i]];
 		}
 
 		// array to store the second xor output
-		int[] secondXorOutput = new int[4];
+		Byte[] secondXorOutput = new Byte[4];
 
 		// xor abovePermuation with leftAfterPermutation
 		for (int i = 0; i < secondXorOutput.length; i++) {
@@ -310,7 +310,7 @@ public class SDES {
 	// helper method to generate 2 keys from raw key
 	public static void generateKeys(String rawKey) {
 		// convert the raw key from string to an array
-		List<Integer> keyArr = new ArrayList<>();
+		List<Byte> keyArr = new ArrayList<>();
 
 		// convert string value to int and add to the array
 		for (int i = 0; i < rawKey.length(); i++) {
@@ -318,15 +318,15 @@ public class SDES {
 		}
 
 		// permutate the current raw key with 10 bit permutation
-		int[] currentKey = new int[10];
+		Byte[] currentKey = new Byte[10];
 		for (int i = 0; i < currentKey.length; i++) {
 			currentKey[i] = keyArr.get(indicesFor10BitPerm[i]);
 		}
 
 		// copy the values of the current key and split into 2 5 bit arrays
-		int[] left = new int[5];
+		Byte[] left = new Byte[5];
 		System.arraycopy(currentKey, 0, left, 0, 5);
-		int[] right = new int[5];
+		Byte[] right = new Byte[5];
 		System.arraycopy(currentKey, 5, right, 0, 5);
 
 		// run left circular shift by 1 bit on left and right side
@@ -353,9 +353,9 @@ public class SDES {
 		}
 
 		// get 'currentKey' split into two halves
-		left = new int[5];
+		left = new Byte[5];
 		System.arraycopy(currentKey, 0, left, 0, 5); // left side
-		right = new int[5];
+		right = new Byte[5];
 		System.arraycopy(currentKey, 5, right, 0, 5); // right side
 
 		// do a left circular shift by 2 bits on both halves
