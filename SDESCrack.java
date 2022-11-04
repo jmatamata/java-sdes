@@ -1,8 +1,11 @@
 package project1;
 
 import java.util.*;
+import java.io.*;
 
 public class SDESCrack {
+	final static String outputFilePath = "../java-sdes/SDESCrackoutput.txt";
+
 
 	public static void main(String[] args) {
 		System.out.println(
@@ -16,6 +19,43 @@ public class SDESCrack {
 		
 		// Map containing all of the possible keys and Decrypted Cascii text
 		HashMap<String, String> stringOutputs = SDESCrack.bruteDecryptString(msg1);
+
+		// write the hashmap output to a file
+		File file = new File(outputFilePath);
+  
+        BufferedWriter bf = null;
+
+		try {
+  
+            // create new BufferedWriter for the output file
+            bf = new BufferedWriter(new FileWriter(file));
+  
+            // iterate map entries
+            for (Map.Entry<String, String> entry : stringOutputs.entrySet()) {
+  
+                // put key and value separated by a colon
+                bf.write(entry.getKey() + ":" + entry.getValue());
+  
+                // new line
+                bf.newLine();
+            }
+  
+            bf.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+  
+            try {
+  
+                // always close the writer
+                bf.close();
+            }
+            catch (Exception e) {
+            }
+        }
+		// delete above if no longer necessary
 
 	}
 	

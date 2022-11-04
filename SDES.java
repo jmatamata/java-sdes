@@ -4,8 +4,8 @@ import java.util.*;
 
 public class SDES {
 	// definitions of S-boxes that we will use in the program
-	public static int[][] S_0 = { { 1, 3, 0, 2 }, { 3, 2, 1, 0 }, { 0, 2, 1, 3 }, { 3, 1, 3, 2 } };
-	public static int[][] S_1 = { { 0, 1, 2, 3 }, { 2, 0, 1, 3 }, { 3, 0, 1, 0 }, { 2, 1, 0, 3 } };
+	public static Byte[][] S_0 = { { 1, 0, 3, 2 }, { 3, 2, 1, 0 }, { 0, 2, 1, 3 }, { 3, 1, 3, 2 } };
+	public static Byte[][] S_1 = { { 0, 1, 2, 3 }, { 2, 0, 1, 3 }, { 3, 0, 1, 0 }, { 2, 1, 0, 3 } };
 
 	// arrays to define our steps of our permutations (1 less to avoid out of bounds
 	// exception)
@@ -230,6 +230,9 @@ public class SDES {
 		// perform xor operation with expanded permutation of right side and keyToUse
 		for (int i = 0; i < xorOutput.length; i++) {
 			xorOutput[i] = (byte) (rightExpansion[i] ^ keyToUse[i]);
+			//System.out.println("using rightExpansion[i] ^ keyToUse[i]: "+(rightExpansion[i] ^ keyToUse[i]));
+			//System.out.println("a[i] + b[i]:"+ (rightExpansion[i] + keyToUse[i]));
+			//System.out.println("same operation?: "+ (rightExpansion[i] ^ keyToUse[i])==(rightExpansion[i] + keyToUse[i]));
 		}
 
 		// split the xor output into 2 4-bit arrays
