@@ -32,7 +32,7 @@ public class TripleSDESCrack {
 				// Decrypts all bits in cipherTextList
 				for (String s : cipherTextList) {
 					// Decrypts length of 8 String cipher text
-					int[] tempDecrypt = TripleSDES.tripleDesDecryption(s, rawKey, rawKey2);
+					Byte[] tempDecrypt = TripleSDES.tripleDesDecryption(s, rawKey, rawKey2);
 
 					// adds decrypted integers to Integer ArrayList
 					for (int b : tempDecrypt)

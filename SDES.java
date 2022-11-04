@@ -287,7 +287,7 @@ public class SDES {
 
 		// xor abovePermuation with leftAfterPermutation
 		for (int i = 0; i < secondXorOutput.length; i++) {
-			secondXorOutput[i] = (byte) (abovePermutation[i] ^ leftSide[i]);
+			secondXorOutput[i] = (byte) ((byte)abovePermutation[i] ^ (byte)leftSide[i]);
 		}
 
 		// return the secondXorOutput and rightSide (in that order)

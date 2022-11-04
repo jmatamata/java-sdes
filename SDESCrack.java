@@ -20,14 +20,14 @@ public class SDESCrack {
 	}
 	
 	// Takes in a cascii String and key to use in SDES encryption 
-	public static ArrayList<Integer> casciiStringEncypt(String casciiString, String rawKey) {
-		ArrayList<Integer> encryptedBits = new ArrayList<>();
+	public static ArrayList<Byte> casciiStringEncypt(String casciiString, String rawKey) {
+		ArrayList<Byte> encryptedBits = new ArrayList<>();
 		
 		for(int i = 0; i < casciiString.length(); i++) {
 			String tempPlainText = SDESCrack.charToPlainText(casciiString.charAt(i));
-			int[] tempOutput = SDES.runSDESEncrypt(tempPlainText, rawKey);
+			Byte[] tempOutput = SDES.runSDESEncrypt(tempPlainText, rawKey);
 			
-			for(int b : tempOutput)
+			for(byte b : tempOutput)
 				encryptedBits.add(b);
 		}
 		
@@ -51,7 +51,7 @@ public class SDESCrack {
 			// Decrypts all bits in cipherTextList
 			for (String s : cipherTextList) {
 				// Decrypts length of 8 String cipher text
-				int[] tempDecrypt = SDES.runSDESDecrypt(s, rawKey);
+				Byte[] tempDecrypt = SDES.runSDESDecrypt(s, rawKey);
 
 				// adds decrypted integers to Integer ArrayList
 				for (int b : tempDecrypt)

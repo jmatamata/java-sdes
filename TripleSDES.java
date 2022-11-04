@@ -55,11 +55,11 @@ public class TripleSDES {
     }
 
     // method to run sdes 
-    public static int[] tripleDesEncryption(String plainText, String rawKey1, String rawKey2){
+    public static Byte[] tripleDesEncryption(String plainText, String rawKey1, String rawKey2){
         // use a string to hold int[] values from helper method
         String solutionString = "";
 
-        int[] solution = new int[8];
+        Byte[] solution = new Byte[8];
 
         //DES cipher with key 1 and plain text provided
         solution = SDES.runSDESEncrypt(plainText, rawKey1);
@@ -76,11 +76,11 @@ public class TripleSDES {
         return solution;
     }
 
-    public static int[] tripleDesDecryption(String plainText, String rawKey1, String rawKey2){
+    public static Byte[] tripleDesDecryption(String plainText, String rawKey1, String rawKey2){
         // use a string to hold int[] values from helper method
         String solutionString = "";
 
-        int[] solution = new int[8];
+        Byte[] solution = new Byte[8];
 
         // DES reverse-cipher (DES decrypt) with key 1 and plain text provided
         solution = SDES.runSDESDecrypt(plainText, rawKey1);
@@ -98,11 +98,11 @@ public class TripleSDES {
     }
 
     // helper method that adds all int values in an array of ints to a string
-    public static String getArrayValue(int[] arr){
+    public static String getArrayValue(Byte[] arr){
         String solution = "";
 
         // loop through all values and add to string solution
-        for(Integer curr:arr){
+        for(Byte curr:arr){
             solution+=Integer.toString(curr);
         }
 
