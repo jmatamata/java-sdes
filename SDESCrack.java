@@ -83,7 +83,7 @@ public class SDESCrack {
 		for (int i = 0; i < 1024; i++) {
 
 			// ArrayList containing all decrypted bits
-			ArrayList<Integer> decryptedBits = new ArrayList<>(userCipherData.length());
+			ArrayList<Byte> decryptedBits = new ArrayList<>(userCipherData.length());
 
 			// Makes new rawKey for each iteration
 			String rawKey = SDESCrack.keyFromBinaryString(Integer.toBinaryString(i));
@@ -94,7 +94,7 @@ public class SDESCrack {
 				Byte[] tempDecrypt = SDES.runSDESDecrypt(s, rawKey);
 
 				// adds decrypted integers to Integer ArrayList
-				for (int b : tempDecrypt)
+				for (Byte b : tempDecrypt)
 					decryptedBits.add(b);
 			}
 
@@ -139,7 +139,7 @@ public class SDESCrack {
 		return sb.toString();
 	}
 
-	public static String casciiDecode(ArrayList<Integer> userDecodedBits) {
+	public static String casciiDecode(ArrayList<Byte> userDecodedBits) {
 		StringBuilder sb = new StringBuilder();
 
 		for (int i = 0; i < userDecodedBits.size(); i += 5) {
@@ -161,7 +161,7 @@ public class SDESCrack {
 	}
 
 	// Converts an ArrayList of int type bits to a single String
-	public static String bitsToString(ArrayList<Integer> bits) {
+	public static String bitsToString(ArrayList<Byte> bits) {
 		StringBuilder sb = new StringBuilder();
 		for (int i : bits)
 			sb.append(i);

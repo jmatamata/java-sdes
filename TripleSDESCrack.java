@@ -51,15 +51,16 @@ public class TripleSDESCrack {
 	
     public static HashMap<ArrayList<String>, String> bruteDecryptString(String userCipherData) {
     	// Converts large String to ArrayList full of Strings of length 8
+		//ArrayList<String> cipherTextList = SDESCrack.toCipherTextArrayList(userCipherData);
 		ArrayList<String> cipherTextList = SDESCrack.toCipherTextArrayList(userCipherData);
-		HashMap<ArrayList<String>, String> plainTextOutputs = new HashMap<>(1024);
+		HashMap<ArrayList<String>, String> plainTextOutputs = new HashMap<>();
 
 		// Runs for all possible keys
 		for (int i = 0; i < 1024; i++) {
-			for(int j = i; j < 1024; j++) {
+			for(int j = 0; j < 1024; j++) {
 				
 				// ArrayList containing all decrypted bits
-				ArrayList<Integer> decryptedBits = new ArrayList<>(userCipherData.length());
+				ArrayList<Byte> decryptedBits = new ArrayList<>();
 
 				// Makes new rawKey for each i iteration
 				String rawKey = SDESCrack.keyFromBinaryString(Integer.toBinaryString(i));
@@ -73,7 +74,7 @@ public class TripleSDESCrack {
 					Byte[] tempDecrypt = TripleSDES.tripleDesDecryption(s, rawKey, rawKey2);
 
 					// adds decrypted integers to Integer ArrayList
-					for (int b : tempDecrypt)
+					for (Byte b : tempDecrypt)
 						decryptedBits.add(b);
 				}
 
@@ -91,5 +92,14 @@ public class TripleSDESCrack {
 		
 		return plainTextOutputs;
     }
+
+	public static ArrayList<Byte> toByteArray(String userCipherData){
+		ArrayList<Byte> vals = new ArrayList<>();
+		for(int i = 0; i < userCipherData.length(); i++){
+			vals.add((byte) Integer.parseInt(Character.toString(userCipherData.charAt(i))));
+		}
+
+		return vals;
+	}
 
 }
